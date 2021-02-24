@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+
+package proto;
+
+//服务
+service KeyValueStore {
+  rpc GetValues (ValuesRequest) returns (ValuesResponse) {}
+}
+//请求
+message ValuesRequest {
+  string key = 1;
+}
+
+//响应
+message ValuesResponse {
+  string value = 1;
+}

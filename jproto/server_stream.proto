@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+
+package proto;
+
+service ServerStream{
+  rpc doRequest(ServerStreamRequest) returns(stream ServerStreamResponse){}
+}
+
+//请求
+message ServerStreamRequest{
+  string reqIdx=1;
+  string reqData = 2;
+}
+
+//响应
+message ServerStreamResponse{
+  string rspIdx = 1;
+  string rspData=2;
+}
+
