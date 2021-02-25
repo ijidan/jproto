@@ -2,6 +2,7 @@ package call
 
 import (
 	"context"
+	pb "github.com/ijidan/jproto/jproto/build"
 )
 
 //键值对存储服务

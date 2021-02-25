@@ -2,6 +2,7 @@ package call
 
 import (
 	"context"
+	pb "github.com/ijidan/jproto/jproto/build"
 	"github.com/opentracing/opentracing-go"
 )
 

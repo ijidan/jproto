@@ -2,6 +2,7 @@ package call
 
 import (
 	pb "github.com/ijidan/jproto/jproto/build"
+	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"io"
 )
@@ -40,7 +41,7 @@ func (c *ClientStreamCall) DoRequest(reqIdx string, reqData string) error {
 		err := client.Send(request)
 		//检测服务端主动关闭
 		if err == io.EOF {
-			log.Notice("client stream:server closed")
+			log.Info("client stream:server closed")
 			break
 		}
 		if err != nil {
