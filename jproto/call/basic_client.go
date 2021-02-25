@@ -39,13 +39,13 @@ func (c *BasicCall) buildConnection() () {
 }
 
 //关闭连接
-func (c *BasicCall) closeConn() {
+func (c *BasicCall) CloseConn() {
 	_ = c.conn.Close()
 }
 
 //结束时操作
 func (c *BasicCall) endHandler() {
-	c.closeConn()
+	//c.closeConn()
 }
 
 //获取连接
