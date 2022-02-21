@@ -1,0 +1,80 @@
+syntax = "proto3";
+package message;
+option go_package = "proto_build/;proto_build";
+
+import "google/api/annotations.proto";
+//import "github.com/mwitkow/go-proto-validators@v0.3.2/validator.proto";
+import "github.com/envoyproxy/protoc-gen-validate@v0.6.3/validate/validate.proto";
+
+
+message RegisterRequest{
+  string gateway_id = 1 [(validate.rules).string = {min_len:1}];
+  string client_id = 2 [(validate.rules).string = {min_len:1}];
+
+}
+
+message RegisterResponse{
+}
+
+message UnRegisterRequest{
+  string gateway_id = 1 [(validate.rules).string = {min_len:1}];
+  string client_id = 2 [(validate.rules).string = {min_len:1}];
+}
+
+message UnRegisterResponse{
+
+}
+
+message SendMessageRequest{
+  string gateway_id = 1 [(validate.rules).string = {min_len:1}];
+  bytes data = 2 [(validate.rules).bytes = {min_len:1}];
+}
+
+message SendMessageResponse{
+  bytes data = 1 [(validate.rules).bytes = {min_len:1}];
+
+
+}
+
+message PushToAllRequest{
+  string gateway_id = 1 [(validate.rules).string = {min_len:1}];
+  bytes data = 2 [(validate.rules).bytes = {min_len:1}];
+
+}
+
+message PushToAllResponse{
+  uint64 data = 1[(validate.rules).uint64 = {gt:0}];
+}
+
+
+service GatewayService {
+
+  rpc Register(RegisterRequest) returns(RegisterResponse){
+    option (google.api.http) = {
+      post: "/v1/api/gateway/register",
+      body:"*"
+    };
+  }
+
+  rpc UnRegister(UnRegisterRequest) returns(UnRegisterResponse){
+    option (google.api.http) = {
+      post: "/v1/api/gateway/unRegister",
+      body:"*"
+    };
+  }
+
+  rpc SendMessage(stream SendMessageRequest) returns(stream SendMessageResponse){
+    option (google.api.http) = {
+      post: "/v1/api/gateway/send",
+      body:"*"
+    };
+  }
+
+  rpc PushToAllMessage(stream PushToAllRequest) returns(stream PushToAllResponse){
+    option (google.api.http) = {
+      post: "/v1/api/gateway/pushToAll",
+      body:"*"
+    };
+  }
+}
+
